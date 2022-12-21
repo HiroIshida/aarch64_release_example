@@ -53,9 +53,9 @@ jobs:
             git submodule update --init
 
           # Produce a binary artifact and place it in the mounted volume
-          # run: |
-          #   cp $(which git) "/artifacts/${artifact_name}"
-          #   echo "Produced artifact at /artifacts/${artifact_name}"
+          run: |
+            cp $(which git) "/artifacts/${artifact_name}"
+            echo "Produced artifact at /artifacts/${artifact_name}"
 
       - name: Show the artifact
         # Items placed in /artifacts in the container will be in
