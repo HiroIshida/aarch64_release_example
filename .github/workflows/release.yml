@@ -47,14 +47,23 @@ jobs:
           # publicly in your project's package repository, so it is vital that
           # no secrets are present in the container state or logs.
           install: |
-            apt-get install libeigen3-dev git
+            apt-get update
+            apt-get install libeigen3-dev git cmake python3-pip curl -y
+            apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python3-openssl
+            curl https://pyenv.run|bash
+            echo 'eval "$(pyenv init -)"' >> ~/.bashrc
+            exec bash
+            pyenv install 3.6.15
             git clone https://github.com/HiroIshida/tinyfk.git
             cd tinyfk
             git submodule update --init
+            pyenv global 3.6.15
+            python3 install scikit-build numpy
+            python3 setup.py bdist_wheel -p manylinux2014_x86_64
 
           # Produce a binary artifact and place it in the mounted volume
           run: |
-            cp $(which git) "/artifacts/${artifact_name}"
+            cp tinyfk/dist/* /artifacts
             echo "Produced artifact at /artifacts/${artifact_name}"
 
       - name: Show the artifact
