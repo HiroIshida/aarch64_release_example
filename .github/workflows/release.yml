@@ -47,15 +47,15 @@ jobs:
           # publicly in your project's package repository, so it is vital that
           # no secrets are present in the container state or logs.
           install: |
-            sudo apt-get install libeigen3-dev
+            apt-get install libeigen3-dev git
             git clone https://github.com/HiroIshida/tinyfk.git
             cd tinyfk
             git submodule update --init
 
           # Produce a binary artifact and place it in the mounted volume
-          run: |
-            cp $(which git) "/artifacts/${artifact_name}"
-            echo "Produced artifact at /artifacts/${artifact_name}"
+          # run: |
+          #   cp $(which git) "/artifacts/${artifact_name}"
+          #   echo "Produced artifact at /artifacts/${artifact_name}"
 
       - name: Show the artifact
         # Items placed in /artifacts in the container will be in
