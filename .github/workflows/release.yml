@@ -60,10 +60,10 @@ jobs:
             pyenv global 3.6.15
             python3 install scikit-build numpy
             python3 setup.py bdist_wheel -p manylinux2014_x86_64
+            cp -r dist /artifacts
 
           # Produce a binary artifact and place it in the mounted volume
           run: |
-            cp tinyfk/dist/* /artifacts
             echo "Produced artifact at /artifacts/${artifact_name}"
 
       - name: Show the artifact
